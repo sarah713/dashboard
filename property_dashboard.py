@@ -198,54 +198,14 @@ def main():
             logo = Image.open('binayah.png')
             st.image(logo, width=200)
 
-    # Google Sheets URL Input
-    # Store the sheet URL in Streamlit secrets or as environment variable for deployed version
-    # For local testing, you can hardcode it here temporarily
-    
-    # Check if running locally or deployed
+    # Read from secrets only - NO INPUT UI
     if 'GOOGLE_SHEET_URL' in st.secrets:
-        # Deployed version - read from secrets
         sheet_url = st.secrets['GOOGLE_SHEET_URL']
         df = load_google_sheet(sheet_url)
     else:
-        # Local version - show input or use hardcoded URL
-        st.markdown("### 📊 Configure Data Source")
-        sheet_url = st.text_input(
-            "Google Sheets URL", 
-            placeholder="https://docs.google.com/spreadsheets/d/1FdRDF7z5v7ejd1Ld6VUvDtASPE3tS36-MrbGg1cSUHY/edit",
-            help="Paste your Google Sheets URL here. Sheet must be shared with 'Anyone with the link can view'"
-        )
-        
-        if sheet_url:
-            df = load_google_sheet(sheet_url)
-        else:
-            st.info("👆 Please enter your Google Sheets URL to load the dashboard")
-            
-            # Show instructions
-            with st.expander("📋 How to set up your Google Sheet"):
-                st.markdown("""
-                **Step 1: Prepare your Google Sheet**
-                - Create a Google Sheet with these exact columns:
-                  - Agent Name
-                  - Team (values: "Offplan" or "Secondary")
-                  - Calls Made
-                  - Meetings Done
-                  - Listings Done
-                  - Photo (Google Drive links)
-                
-                **Step 2: Share your sheet**
-                - Click "Share" button
-                - Change to "Anyone with the link can view"
-                - Copy the link
-                
-                **Step 3: Paste the link above**
-                - The dashboard will load automatically
-                - Any changes to the sheet will reflect when you refresh
-                
-                **For deployment:**
-                - Add your sheet URL to Streamlit secrets as `GOOGLE_SHEET_URL`
-                """)
-            st.stop()
+        st.error("❌ Google Sheets URL not found in secrets")
+        st.info("Please add GOOGLE_SHEET_URL to your Streamlit secrets")
+        st.stop()
     
     if df is None:
         st.stop()
