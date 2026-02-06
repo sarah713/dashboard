@@ -13,7 +13,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
-# count = st_autorefresh(interval=5000, key="datarefresh")
+count = st_autorefresh(interval=30000, key="datarefresh")
 # Binayah Theme Colors
 FOREST_GREEN = '#004D42'
 GOLDEN = '#D4AF37'
