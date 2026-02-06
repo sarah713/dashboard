@@ -5,6 +5,7 @@ import requests
 import os
 from io import BytesIO
 from PIL import Image
+from streamlit_autorefresh import st_autorefresh
 
 # Page configuration
 st.set_page_config(
@@ -12,9 +13,9 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
-
+count = st_autorefresh(interval=5000, key="datarefresh")
 # Binayah Theme Colors
-FOREST_GREEN = '#2D5016'
+FOREST_GREEN = '#004D42'
 GOLDEN = '#D4AF37'
 TEXT_DARK = '#1A1A1A'
 
