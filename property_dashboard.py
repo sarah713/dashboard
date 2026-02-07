@@ -151,7 +151,7 @@ def create_horizontal_bar_chart(agent_name, metric1_name, metric1_value, metric2
         y=[agent_name], 
         x=[metric2_value], 
         name=metric2_name,
-        orientation='h', 
+        orientation='v', 
         marker=dict(color=GOLDEN),
         text=[metric2_value], 
         textposition='inside',
